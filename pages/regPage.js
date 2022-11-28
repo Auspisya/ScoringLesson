@@ -2,13 +2,17 @@ import axios from "axios";
 import React, {useState} from "react";
 import { Button, TextInput, View, StyleSheet, TouchableOpacity, Text, Image, ScrollView} from "react-native";
 
-export function RegPage() {
+export function RegPage({navigation}) {
 
     const [login, setLogin] = useState("");
     const [password, setPassword] = useState("");
 
     const onLoginHandler = (login) => setLogin(login);
     const onPasswordHandler = (password) => setPassword(password);
+
+    const RegImage = () => (
+      <Image source = {require('./images/reg-icon.png')} style={styles.imageContainer}/>
+   );
 
     const RegButton = ({ onPress, title }) => (
         <TouchableOpacity onPress={onPress} style={styles.buttonContainer}>
@@ -24,31 +28,29 @@ export function RegPage() {
             alert("Вы успешно зарегистрировались!")
 
             navigation.reset({
-            
-                //Резет не позволяет вернуться назад
-                //Индексы нужны, чтобы вести историю переходов
-                
                 index: 0,
                 routes: [{name: "Авторизация"}]
         });
-    }
-    else{
-      alert("Невозможно зарегистрироваться.")
-    }
+        }
+        else{
+          alert("Невозможно зарегистрироваться.")
+        }
 }
 
     return(
-            <View style={styles.screenContainer}>
+      <View style={styles.screenContainer}>
 
-            <Text style={styles.defaultTitle}>Создание аккаунта</Text>
+        <RegImage></RegImage>
 
-            <TextInput placeholder="Введите логин..." value={login} onChangeText={onLoginHandler} style={styles.textInputContainer}/>
+        <Text style={styles.defaultTitle}>Создание аккаунта</Text>
 
-            <TextInput placeholder="Введите пароль..." value={password} onChangeText={onPasswordHandler} style={styles.textInputContainer}/>
+        <TextInput placeholder="Введите логин..." value={login} onChangeText={onLoginHandler} style={styles.textInputContainer}/>
 
-            <RegButton title="Зарегистрироваться" onPress={onSubmitFormHandlerReg}> </RegButton>
+        <TextInput placeholder="Введите пароль..." value={password} onChangeText={onPasswordHandler} style={styles.textInputContainer}/>
 
-            </View>
+        <RegButton title="Зарегистрироваться" onPress={onSubmitFormHandlerReg}> </RegButton>
+
+        </View>
     );
 }
 
@@ -62,7 +64,7 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
       elevation: 8,
-      backgroundColor: "#43BBAB",
+      backgroundColor: "#2e90c6",
       borderRadius: 10,
       paddingVertical: 10,
       paddingHorizontal: 12,
@@ -93,8 +95,10 @@ const styles = StyleSheet.create({
         color: "black"
     },
     imageContainer: {
-      width: 400,
-      height: 400
+      width: 100,
+      height: 100,
+      alignSelf: 'center',
+      marginBottom: 10
     },
     defaultTitle: {
       color: "#fff",

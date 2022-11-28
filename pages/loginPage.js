@@ -12,6 +12,10 @@ export function LoginPage({navigation}) {
         const onLoginHandler = (login) => setLogin(login);
         const onPasswordHandler = (password) => setPassword(password);
 
+        const AuthImage = () => (
+          <Image source = {require('./images/auth-icon.png')} style={styles.imageContainer}/>
+       );
+
         const AuthButton = ({ onPress, title }) => (
             <TouchableOpacity onPress={onPress} style={styles.buttonContainer}>
               <Text style={styles.buttonText}>{title}</Text>
@@ -45,22 +49,10 @@ export function LoginPage({navigation}) {
         }
     }
 
-    const onSubmitFormHandlerReg = async () => {
-
-          navigation.reset({
-          
-              //Резет не позволяет вернуться назад
-              //Индексы нужны, чтобы вести историю переходов
-              
-              index: 0,
-              routes: [{name: "Регистрация"}]
-      });
-}
-
     return(
         <View style={styles.screenContainer}>
 
-            {/* <Image source={require('.\images\auth-icon.png')} style={styles.imageContainer}/> */}
+            <AuthImage></AuthImage>
 
             <Text style={styles.defaultTitle}>Вход в систему</Text>
 
@@ -72,7 +64,7 @@ export function LoginPage({navigation}) {
 
             <Text style={styles.regText}> Нет аккаунта? - Зарегистрируйтесь. </Text>
 
-            <RegButton title="Регистрация" onPress={onSubmitFormHandlerReg}> </RegButton>
+            <RegButton title="Регистрация" onPress={() => navigation.navigate('Регистрация')}> </RegButton>
 
         </View>
     );
@@ -88,7 +80,7 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
       elevation: 8,
-      backgroundColor: "#43BBAB",
+      backgroundColor: "#2e90c6",
       borderRadius: 10,
       paddingVertical: 10,
       paddingHorizontal: 12,
@@ -119,8 +111,10 @@ const styles = StyleSheet.create({
         color: "black",
     },
     imageContainer: {
-      width: 400,
-      height: 400
+      width: 100,
+      height: 100,
+      alignSelf: 'center',
+      marginLeft: 25
     },
     defaultTitle: {
       color: "#fff",
