@@ -18,12 +18,18 @@ export function LoginPage({navigation}) {
             </TouchableOpacity>
           );
 
+          const RegButton = ({ onPress, title }) => (
+            <TouchableOpacity onPress={onPress} style={styles.buttonContainer}>
+              <Text style={styles.buttonText}>{title}</Text>
+            </TouchableOpacity>
+          );
+
         const onSubmitFormHandler = async () => {
 
-            const responceGet = await axios.get('https://test-api.easy4.ru/auth?login=${login}&password=${password}', {})
+            const responceGet = await axios.get(`https://test-api.easy4.ru/auth?login=${login}&password=${password}`, {})
             if(responceGet.status = 200){
 
-                alert(responceGet.data.description)
+                alert("Вы успешно вошли!")
 
                 navigation.reset({
                 
@@ -35,20 +41,39 @@ export function LoginPage({navigation}) {
             });
         }
         else{
-            alert(responceGet.data.description)
+          alert("Данные введены неверно!")
         }
     }
+
+    const onSubmitFormHandlerReg = async () => {
+
+          navigation.reset({
+          
+              //Резет не позволяет вернуться назад
+              //Индексы нужны, чтобы вести историю переходов
+              
+              index: 0,
+              routes: [{name: "Регистрация"}]
+      });
+}
+
     return(
         <View style={styles.screenContainer}>
 
-            <Image source={require('.\images\auth-icon.png')} style={styles.imageContainer}/>
+            {/* <Image source={require('.\images\auth-icon.png')} style={styles.imageContainer}/> */}
+
+            <Text style={styles.defaultTitle}>Вход в систему</Text>
 
             <TextInput placeholder="Введите логин..." value={login} onChangeText={onLoginHandler} style={styles.textInputContainer}/>
+            
             <TextInput placeholder="Введите пароль..." value={password} onChangeText={onPasswordHandler} style={styles.textInputContainer}/>
 
-            <AuthButton title="Войти" onPress={onSubmitFormHandler}>
+            <AuthButton title="Войти" onPress={onSubmitFormHandler}> </AuthButton>
 
-            </AuthButton>
+            <Text style={styles.regText}> Нет аккаунта? - Зарегистрируйтесь. </Text>
+
+            <RegButton title="Регистрация" onPress={onSubmitFormHandlerReg}> </RegButton>
+
         </View>
     );
 }
@@ -71,7 +96,7 @@ const styles = StyleSheet.create({
       margin: 5
     },
     buttonText: {
-      fontSize: 18,
+      fontSize: 17,
       color: "#fff",
       fontWeight: "bold",
       alignSelf: "center",
@@ -79,7 +104,7 @@ const styles = StyleSheet.create({
     },
     defaultText: {
       color: "#fff",
-      fontSize: 18,
+      fontSize: 14,
       fontWeight: "bold",
       alignSelf: "center"
     },
@@ -91,10 +116,25 @@ const styles = StyleSheet.create({
         height: 40,
         textAlign: "center",
         margin: 5,
-        color: "black"
+        color: "black",
     },
     imageContainer: {
       width: 400,
       height: 400
-    }
+    },
+    defaultTitle: {
+      color: "#fff",
+      fontSize: 20,
+      fontWeight: "bold",
+      alignSelf: "center",
+      marginBottom: 20
+    },
+    regText: {
+      color: "#fff",
+      fontSize: 14,
+      fontWeight: "bold",
+      alignSelf: "center",
+      marginLeft: 6,
+      marginTop: 20,
+    },
   });

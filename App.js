@@ -4,6 +4,7 @@ import { NavigationContainer, StackActions} from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { LoginPage } from './pages/loginPage';
 import { MainPage } from './pages/mainPage';
+import { RegPage } from './pages/regPage';
 
 const Stack = createNativeStackNavigator();
 
@@ -13,6 +14,7 @@ export default function App() {
       <Stack.Navigator initialRouteName="Авторизация">
         <Stack.Screen options={{headerShown: true}} name="Авторизация" component={LoginPage} />
         <Stack.Screen options={{headerShown: true}} name="Профиль пользователя" component={MainPage} />
+        <Stack.Screen options={{headerShown: true}} name="Регистрация" component={RegPage} />
       </Stack.Navigator>
     </NavigationContainer>
   );
