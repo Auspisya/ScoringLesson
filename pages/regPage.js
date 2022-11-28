@@ -23,7 +23,7 @@ export function RegPage({navigation}) {
       const onSubmitFormHandlerReg = async () => {
 
         const responcePost = await axios.post(`https://test-api.easy4.ru/create-user`, {login, password, roleName: "Клиент"})
-        if(responcePost.status = 200){
+        if(responcePost.status = 200 && login !== "" && password !== ""){
 
             alert("Вы успешно зарегистрировались!")
 
@@ -33,7 +33,7 @@ export function RegPage({navigation}) {
         });
         }
         else{
-          alert("Невозможно зарегистрироваться.")
+          alert("Пожалуйста, введите все значения!")
         }
 }
 
@@ -46,7 +46,7 @@ export function RegPage({navigation}) {
 
         <TextInput placeholder="Введите логин..." value={login} onChangeText={onLoginHandler} style={styles.textInputContainer}/>
 
-        <TextInput placeholder="Введите пароль..." value={password} onChangeText={onPasswordHandler} style={styles.textInputContainer}/>
+        <TextInput placeholder="Введите пароль..." value={password} onChangeText={onPasswordHandler} style={styles.textInputContainer} secureTextEntry={true}/>
 
         <RegButton title="Зарегистрироваться" onPress={onSubmitFormHandlerReg}> </RegButton>
 

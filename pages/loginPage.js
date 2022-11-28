@@ -30,24 +30,26 @@ export function LoginPage({navigation}) {
 
         const onSubmitFormHandler = async () => {
 
-            const responceGet = await axios.get(`https://test-api.easy4.ru/auth?login=${login}&password=${password}`, {})
-            if(responceGet.status = 200){
+            const responceGet = await axios.get(`https://test-api.easy4.ru/auth?login=${login}&password=${password}`)
+            if (login !== "" || password !== ""){
+              if (responceGet.status = 200){
+                if (responceGet.data.data.roleRUSSIA == "Клиент") {
+                  alert('Вы зашли под учётной записью: ' + responceGet.data.data.roleRUSSIA)
+                  navigation.reset({index:0, routes: [{name: "Профиль клиента"}]})
+                } else {
+                  alert('Вы зашли под учётной записью: ' + responceGet.data.data.roleRUSSIA)
+                  navigation.reset({index:0, routes: [{name: "Профиль администратора"}]})
+                }
 
-                alert("Вы успешно вошли!")
+              }else{
+                alert("Данные введены неверно!")
+              }
 
-                navigation.reset({
-                
-                    //Резет не позволяет вернуться назад
-                    //Индексы нужны, чтобы вести историю переходов
-                    
-                    index: 0,
-                    routes: [{name: "Профиль пользователя"}]
-            });
+            } else {
+              alert("Пожалуйста, введите все значения!")
+            }
+
         }
-        else{
-          alert("Данные введены неверно!")
-        }
-    }
 
     return(
         <View style={styles.screenContainer}>
@@ -58,7 +60,7 @@ export function LoginPage({navigation}) {
 
             <TextInput placeholder="Введите логин..." value={login} onChangeText={onLoginHandler} style={styles.textInputContainer}/>
             
-            <TextInput placeholder="Введите пароль..." value={password} onChangeText={onPasswordHandler} style={styles.textInputContainer}/>
+            <TextInput placeholder="Введите пароль..." value={password} onChangeText={onPasswordHandler} style={styles.textInputContainer} secureTextEntry={true}/>
 
             <AuthButton title="Войти" onPress={onSubmitFormHandler}> </AuthButton>
 
