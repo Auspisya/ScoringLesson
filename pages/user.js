@@ -1,4 +1,3 @@
-
 export let authorizedUser = {
     data: ['',''],
     change: function(prop) {
