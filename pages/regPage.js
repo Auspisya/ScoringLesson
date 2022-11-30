@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, {useState} from "react";
-import { Button, TextInput, View, StyleSheet, TouchableOpacity, Text, Image, ScrollView} from "react-native";
+import { TextInput, View, StyleSheet, TouchableOpacity, Text, Image } from "react-native";
 
 export function RegPage({navigation}) {
 

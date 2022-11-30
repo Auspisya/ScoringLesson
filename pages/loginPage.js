@@ -1,8 +1,10 @@
 import axios from "axios";
 import React, {useState} from "react";
-import { Button, TextInput, View, StyleSheet, TouchableOpacity, Text, Image} from "react-native";
-
+import { TextInput, View, StyleSheet, TouchableOpacity, Text, Image} from "react-native";
+import { authorizedUser } from './user'
 //Export default - вызывается при запуске приложения, поэтому здесь обычный экспорт
+
+
 
 export function LoginPage({navigation}) {
 
@@ -33,6 +35,7 @@ export function LoginPage({navigation}) {
             const responceGet = await axios.get(`https://test-api.easy4.ru/auth?login=${login}&password=${password}`)
             if (login !== "" || password !== ""){
               if (responceGet.status = 200){
+                authorizedUser.change([login, password]);
                 if (responceGet.data.data.roleRUSSIA == "Клиент") {
                   alert('Вы зашли под учётной записью: ' + responceGet.data.data.roleRUSSIA)
                   navigation.reset({index:0, routes: [{name: "Профиль клиента"}]})
